@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Knight list</title>
+    <meta charset="UTF-8"/>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
+    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"/>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"/>
+
+</head>
+<body>
+
+<div class="container">
+
+    Gold amount: <p th:text="${playerinformation.gold}"/>
+    <a th:href="${'/checkQuests'}">Update Quests</a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <td>Name</td>
+            <td>LEVEL</td>
+            <td>Quest</td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="knight: ${knights}">
+            <td th:text="${knight.name}"></td>
+            <td th:text="${knight.level}"></td>
+            <td>
+                <span th:if="${knight.quest==null}" style="color: rebeccapurple">There is no Quest
+                    <a class="btn btn-outline-success" style="margin-left: 20px;"
+                       th:href="${'/assignQuest?knightId='+knight.id}">Assign Quest</a>
+                </span>
+                <span th:if="${knight.quest!=null}" th:text="${knight.quest.getDescription()}"/>
+            </td>
+            <td><a class="btn btn-light" th:href="${'/knight?id='+knight.id}">View</a></td>
+            <td><a class="btn btn-danger" th:href="${'/knight/delete/'+knight.id}">Dissmiss Knight</a></td>
+        </tr>
+        </tbody>
+        <form class="row" th:action="@{/newknight}">
+            <button type="submit" class="btn btn-dark">Create The Knight</button>
+        </form>
+    </table>
+</div>
+<div></div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Add knight</title>
+    <meta charset="UTF-8"/>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
+    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"/>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"/>
+</head>
+<body>
+
+
+<div class="container">
+    <form  class="form-horizontal" th:object="${knight}" th:action="@{/assignQuest}" th:method="post">
+        <input th:type="hidden" th:field="*{id}"/>
+        <input th:type="hidden" th:field="*{name}"/>
+        <input th:type="hidden" th:field="*{age}"/>
+        <input th:type="hidden" th:field="*{level}"/>
+
+
+        <div class="form-group">
+            <label class="control-label">Choose Quest</label>
+            <select th:field="*{quest}">
+                <option th:each="quest : ${notStartedQuests}"
+                        th:value="${quest.id}"
+                        th:text="${quest.description}"/>
+
+            </select>
+
+        </div>
+
+        <div class="row">
+            <button type="submit" class="btn btn-dark">Submit Knight</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
